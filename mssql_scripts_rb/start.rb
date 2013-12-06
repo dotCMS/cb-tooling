@@ -39,7 +39,7 @@ while notopen
     end
 end
 
-jdbcurl="jdbc:jtds:sqlserver://#{instance.ip_address}:1433/{url}"
+jdbcurl="jdbc:jtds:sqlserver://#{instance.ip_address}:1433/#{ARGV[0]}"
 
 puts "setting jdbc url: #{jdbcurl} into test/ROOT.xml"
 

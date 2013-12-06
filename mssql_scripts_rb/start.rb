@@ -43,9 +43,20 @@ jdbcurl="jdbc:jtds:sqlserver://#{instance.ip_address}:1433/#{ARGV[0]}"
 
 puts "setting jdbc url: #{jdbcurl} into test/ROOT.xml"
 
+# update ROOT.xml to point to the new instance
 rootpath = File.join(ENV["WORKSPACE"],"dotCMS","test","ROOT.xml")
 rootxml = File.read(rootpath)
 newroot = rootxml.gsub(/url="[^"]+"/, "url=\"#{jdbcurl}\"")
 File.open(rootpath, "w") { |io| io.write(newroot) }
+
+# update test/build.properties to have the correct db.url
+propspath = File.join(ENV["WORKSPACE"],"dotCMS","test","build.properties")
+props = File.read(propspath)
+newprops = props.gsub(/^db\.url=.+$/,"db.url=#{jdbcurl}")
+File.open(propspath, "w") { |io| io.write(newprops) }
+
+# store in test/instance the identifier of the instance for later termination
+ifile = File.join(ENV["WORKSPACE"],"dotCMS","test","instance")
+File.open(ifile, "w") { |io| io.write(instance.id) }
 
 puts "Done!"

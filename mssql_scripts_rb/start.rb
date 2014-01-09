@@ -54,7 +54,7 @@ File.open(rootpath, "w") { |io| io.write(newroot) }
 # update test/build.properties to have the correct db.url
 propspath = File.join(ENV["WORKSPACE"],"test","build.properties")
 props = File.read(propspath)
-newprops = props.gsub(/^db\.url=.+$/,"db.url=#{jdbcurl}")+"\ndb.admin.url=\njdbc:jtds:sqlserver://#{instance.ip_address}:1433/master"
+newprops = props.gsub(/^db\.url=.+$/,"db.url=#{jdbcurl}")+"\ndb.admin.url=jdbc:jtds:sqlserver://#{instance.ip_address}:1433/master"
 File.open(propspath, "w") { |io| io.write(newprops) }
 
 # store in test/instance the identifier of the instance for later termination

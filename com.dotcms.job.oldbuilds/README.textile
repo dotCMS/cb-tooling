@@ -1,0 +1,6 @@
+This plugin register a quartz job that deletes assets for old nightly builds
+http://dotcms.com/download/nightly.dot
+It doesn't touch the contentlet. Just its assets.
+It searches for nightly builds older than 40 days but no more than 60 days old. Those 
+older than that should got the axe in past runs.
+By default it is running once a day at 01:00am.

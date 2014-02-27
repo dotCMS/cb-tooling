@@ -1,1 +1,4 @@
 mssql_scripts/credentials.sh
+com.dotcms.job.oldbuilds/build/
+com.dotcms.job.oldbuilds/bin/
+.*

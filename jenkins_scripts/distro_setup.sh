@@ -8,8 +8,8 @@ cd "$WORKSPACE" && rm -rf *
 echo "untar the distribution"
 tar zxf $JENKINS_HOME/distro/running/$VERSION/$TIMESTAMP/dotcms_*.tar.gz
 
-# link tomcat-version to just tomcat
-ln -s dotserver/`ls dotserver | grep  tomcat` dotserver/tomcat
+# rename tomcat-version to just tomcat
+mv dotserver/`ls dotserver | grep  tomcat` dotserver/tomcat
 
 echo "copy the jar with the tests"
 cp $JENKINS_HOME/distro/running/$VERSION/$TIMESTAMP/dotcms_tests_*.jar dotserver/tomcat/webapps/ROOT/WEB-INF/lib

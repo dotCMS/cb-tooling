@@ -26,5 +26,5 @@ echo "build-tests.xml"
 jar xf dotserver/tomcat/webapps/ROOT/WEB-INF/lib/dotcms_tests_*.jar build-tests.xml
 
 echo "se es cluster name"
-sed -i "s/dotCMSContentIndex/$ESCLUSTER/g" dotserver/tomcat/webapps/ROOT/WEB-INF/classes/dotmarketing-config.properties
+sed -i "s/dotCMSContentIndex/$ESCLUSTER/g" dotserver/tomcat/webapps/ROOT/WEB-INF/classes/dotcms-config-cluster.properties
 

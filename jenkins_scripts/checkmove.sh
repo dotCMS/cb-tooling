@@ -2,7 +2,7 @@
 
 VERSION="$1"
 TIMESTAMP="$2"
-DISTRO=` cd $( dirname ${BASH_SOURCE[0]} ) && pwd `
+DISTRO="/var/lib/jenkins/distro"
 
 DIR="$DISTRO/running/$VERSION/$TIMESTAMP"
 if [ -f $DIR/pg_build ] || [ -f $DIR/my_build ] || [ -f $DIR/h2_build ] || [ -f $DIR/ora_build ] || [ -f $DIR/ms_build ]; then

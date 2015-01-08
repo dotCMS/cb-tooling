@@ -10,9 +10,9 @@ conn = boto.ec2.connect_to_region('us-east-1')
 
 #Running Oracle Instance.
 reservation = conn.run_instances(
-	'ami-3e167056',
+	'ami-3c1e6954',
 	key_name='aws-dev-2014',
-	instance_type='t2.micro',
+	instance_type='t2.medium',
 	subnet_id = 'subnet-10368867',
 	security_group_ids=['sg-e800e88c'],
 	instance_initiated_shutdown_behavior='stop')
@@ -25,14 +25,14 @@ while instance.state == "pending":
     instance.update()
 
 millis = int(round(time.time() * 1000))
-instance.add_tag("Name", "dotcms-oracle-" + str(millis))
-instance.add_tag("TerminateName", "dotcms-oracle-terminate")
+instance.add_tag("Name", "dotcms-mssql-" + str(millis))
+instance.add_tag("TerminateName", "dotcms-mssql-terminate")
 
 #Setting ID and IP in OS Env.
 #Creating file with instance id.
-fo = open("/etc/oracleInstance.properties", "wb")
-fo.write("ORACLEINSTANCEIP="+str(instance.ip_address)+" \nORACLEINSTANCEID="+str(instance).split(':')[-1])
+fo = open("/etc/mssqlInstance.properties", "wb")
+fo.write("MSSQLINSTANCEIP="+str(instance.ip_address)+" \nMSSQLINSTANCEID="+str(instance).split(':')[-1])
 fo.close()
 
 #Printing info.
-print "Oracle Instance Running: ", instance, "with public IP: ", instance.ip_address
+print "MS SQL Instance Running: ", instance, "with public IP: ", instance.ip_address

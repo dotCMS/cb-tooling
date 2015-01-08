@@ -10,6 +10,6 @@ conn = boto.ec2.connect_to_region('us-east-1')
 
 reservations = conn.get_all_instances(filters={"tag:TerminateName" : "dotcms-oracle-terminate"})
 instances = [i for r in reservations for i in r.instances]
-if instances:
-	conn.terminate_instances(str(instances[0].id))
-	print "Terminate ", str(instances[0].id)
+for instance in instances:
+	conn.terminate_instances(str(instance.id))
+	print "Terminate ", str(instance.id)

@@ -30,6 +30,7 @@ while instance.state == "pending":
 
 millis = int(round(time.time() * 1000))
 instance.add_tag("Name", "dotcms-oracle-" + str(millis))
+instance.add_tag("TerminateName", "dotcms-oracle-terminate")
 
 #Setting ID and IP in OS Env.
 #Creating file with instance id.

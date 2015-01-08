@@ -33,7 +33,7 @@ instance.add_tag("Name", "dotcms-oracle-" + str(millis))
 
 #Setting ID and IP in OS Env.
 #Creating file with instance id.
-fo = open("~/oracleInstanceScript.sh", "wb")
+fo = open("/etc/oracleInstanceScript.sh", "wb")
 fo.write("#!/bin/bash \n export ORACLEINSTANCEIP="+str(instance.ip_address)+" \n export ORACLEINSTANCEID="+str(instance).split(':')[-1])
 fo.close()
 

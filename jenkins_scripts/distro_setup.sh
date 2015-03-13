@@ -22,4 +22,5 @@ jar xf dotserver/tomcat/webapps/ROOT/WEB-INF/lib/dotcms_tests_*.jar build-tests.
 
 echo "se es cluster name"
 sed -i "s/dotCMSContentIndex/$ESCLUSTER/g" dotserver/tomcat/webapps/ROOT/WEB-INF/classes/dotcms-config-cluster.properties
+sed -i "s/CLUSTER_AUTOWIRE=true/CLUSTER_AUTOWIRE=false/g" dotserver/tomcat/webapps/ROOT/WEB-INF/classes/dotcms-config-cluster.properties
 

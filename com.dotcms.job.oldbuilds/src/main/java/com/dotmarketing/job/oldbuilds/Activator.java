@@ -3,7 +3,7 @@ package com.dotmarketing.job.oldbuilds;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.osgi.framework.BundleContext;
+import com.dotcms.repackage.org.osgi.framework.BundleContext;
 import org.quartz.CronTrigger;
 
 import com.dotmarketing.osgi.GenericBundleActivator;
@@ -17,7 +17,11 @@ public class Activator extends GenericBundleActivator {
 
     public final static String CRON_EXPRESSION = "0 1 * * * ?";
 
+    @SuppressWarnings ("unchecked")
     public void start ( BundleContext context ) throws Exception {
+
+        //Initializing services...
+        initializeServices ( context );
 
         CronScheduledTask cronScheduledTask =
                 new CronScheduledTask( JOB_NAME, JOB_GROUP, JOB_NAME, JOB_CLASS,

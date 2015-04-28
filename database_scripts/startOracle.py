@@ -34,5 +34,8 @@ fo = open("/etc/oracleInstance.properties", "wb")
 fo.write("ORACLEINSTANCEIP="+str(instance.ip_address)+" \nORACLEINSTANCEID="+str(instance).split(':')[-1])
 fo.close()
 
+print "Give 60 seconds to Oracle to Start"
+time.sleep(60)
+
 #Printing info.
 print "Oracle Instance Running: ", instance, "with public IP: ", instance.ip_address

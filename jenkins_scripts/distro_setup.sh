@@ -22,5 +22,9 @@ jar xf dotserver/tomcat/webapps/ROOT/WEB-INF/lib/dotcms_tests_*.jar build-tests.
 
 echo "se es cluster name"
 sed -i "s/dotCMSContentIndex/$ESCLUSTER/g" dotserver/tomcat/webapps/ROOT/WEB-INF/classes/dotcms-config-cluster.properties
+
+echo "set Autowire False"
 sed -i "s/CLUSTER_AUTOWIRE=true/CLUSTER_AUTOWIRE=false/g" dotserver/tomcat/webapps/ROOT/WEB-INF/classes/dotcms-config-cluster.properties
 
+echo "set Max tries to push publish to 1"
+sed -i "s/PUBLISHER_QUEUE_MAX_TRIES=3/PUBLISHER_QUEUE_MAX_TRIES=1/g" dotserver/tomcat/webapps/ROOT/WEB-INF/classes/dotmarketing-config.properties

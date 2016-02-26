@@ -16,8 +16,6 @@ cp $JENKINS_HOME/distro/running/$VERSION/$TIMESTAMP/dotcms_tests_*.jar dotserver
 
 echo "copy the jars required to run the tests"
 cp $JENKINS_HOME/distro/running/$VERSION/$TIMESTAMP/junit-*.jar dotserver/tomcat/webapps/ROOT/WEB-INF/lib
-cp $JENKINS_HOME/distro/running/$VERSION/$TIMESTAMP/objenesis-*.jar dotserver/tomcat/webapps/ROOT/WEB-INF/lib
-cp $JENKINS_HOME/distro/running/$VERSION/$TIMESTAMP/mockito-core-*.jar dotserver/tomcat/webapps/ROOT/WEB-INF/lib
 
 echo "uncomment test servlet"
 sed -i '/TEST FRAMEWORK SERVLETS/d' dotserver/tomcat/webapps/ROOT/WEB-INF/web.xml

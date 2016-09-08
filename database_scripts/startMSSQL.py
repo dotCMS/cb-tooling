@@ -34,5 +34,8 @@ fo = open("/etc/mssqlInstance.properties", "wb")
 fo.write("MSSQLINSTANCEIP="+str(instance.ip_address)+" \nMSSQLINSTANCEID="+str(instance).split(':')[-1])
 fo.close()
 
+print "Give 60 seconds to MS-SQL to Start"
+time.sleep(60)
+
 #Printing info.
 print "MS SQL Instance Running: ", instance, "with public IP: ", instance.ip_address

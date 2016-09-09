@@ -12,7 +12,7 @@ conn = boto.ec2.connect_to_region('us-east-1')
 reservation = conn.run_instances(
 	'ami-3c1e6954',
 	key_name='aws-dev-2014',
-	instance_type='m3.medium',
+	instance_type='m3.large',
 	subnet_id = 'subnet-10368867',
 	security_group_ids=['sg-e800e88c'],
 	instance_initiated_shutdown_behavior='stop')

@@ -19,8 +19,8 @@ cd "$WORKSPACE/repo/dotCMS"
 #Cleaning up gradle cache
 rm -rf "$WORKSPACE/repo/dotCMS/.gradle/"
 
-./gradlew clean --no-daemon --refresh-dependencies
-./gradlew createDist --no-daemon
+./gradlew -d clean --no-daemon --refresh-dependencies
+./gradlew -d createDist --no-daemon
 
 #VERSION=$(grep dotcms.release.version  src/main/webapp/WEB-INF/classes/release.properties | awk -F = '{ print $2 }')
 VERSION='master'

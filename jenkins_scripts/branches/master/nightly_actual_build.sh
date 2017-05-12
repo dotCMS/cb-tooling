@@ -1,3 +1,7 @@
+# Enable echoing commands
+trap 'echo "[$USER@$(hostname) $PWD]\$ $BASH_COMMAND"' DEBUG
+
+
 echo "**** ENV ****"
 env
 echo "**** ENV ****"
@@ -19,7 +23,7 @@ rm -rf "$WORKSPACE/repo/dotCMS/.gradle/"
 VERSION='master'
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 
-DISTRO="/var/lib/jenkins/distro"
+DISTRO="$JENKINS_HOME/distro"
 
 DIR="$WORKSPACE/repo/dist-output"
 

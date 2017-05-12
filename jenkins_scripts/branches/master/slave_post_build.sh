@@ -1,3 +1,10 @@
+#!/usr/bin/env bash
+
+
+# Enable echoing commands
+trap 'echo "[$USER@$(hostname) $PWD]\$ $BASH_COMMAND"' DEBUG
+
+
 export AWS_CREDENTIAL_PROFILES_FILE=$JENKINS_HOME/credentials
 export AWS_CREDENTIAL_PRIVATE_KEY_FILE=$JENKINS_HOME/dotcms-dev-test-deploy-2017-02-0x5513.pem
 

@@ -1,3 +1,10 @@
+#!/usr/bin/env bash
+
+
+# Enable echoing commands
+trap 'echo "[$USER@$(hostname) $PWD]\$ $BASH_COMMAND"' DEBUG
+
+
 VERSION='master'
 cd "$JENKINS_HOME/distro/ready/$VERSION/"
 GIT_COMMIT=$(cat commit)
@@ -8,7 +15,7 @@ TARFILE="@dotcms_$VERSION.tar.gz"
 for DB in `ls -1F | grep "/$"`; do
 cd $DB
   pwd
-  
+
   echo "clear older"
   COUNT=$(ls | wc -l)
   if (( COUNT>2 )); then
@@ -19,10 +26,10 @@ cd $DB
   echo "pick latest"
   TIMESTAMP=$(ls | sort | tail --lines=1)
   cd $TIMESTAMP
-  
+
   lastBuild=$(curl https://dotcms.com/api/content/query/+structureName:DotcmsNightlyBuilds%20+conhost:SYSTEM_HOST%20+live:true%20+DotcmsNightlyBuilds.version:$VERSION/limit/1 2>/dev/null | python -c 'import sys, json; jsonValue = json.load(sys.stdin)["contentlets"];print jsonValue[0]["commitNumber"] if jsonValue else 0;')
   echo "lastbuild uploaded to dotcms.com for version $VERSION: $lastBuild "
-    
+
     if [ -f pg_build ]; then
        PGBuild=$(cat Postgres_build)
     fi
@@ -45,8 +52,8 @@ cd $DB
 
     T=$TIMESTAMP
     TT="${T:0:4}-${T:4:2}-${T:6:2} ${T:8:2}:${T:10:2}:${T:12:2}"
-    
-     cd "$JENKINS_HOME/distro/ready/$VERSION/"
+
+    cd "$JENKINS_HOME/distro/ready/$VERSION/"
 done
 
 if [ "$GIT_COMMIT" == "$lastBuild" ]; then

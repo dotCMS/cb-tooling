@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+
+
 # Enable echoing commands
 trap 'echo "[$USER@$(hostname) $PWD]\$ $BASH_COMMAND"' DEBUG
 

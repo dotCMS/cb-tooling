@@ -30,23 +30,23 @@ cd $DB
   lastBuild=$(curl https://dotcms.com/api/content/query/+structureName:DotcmsNightlyBuilds%20+conhost:SYSTEM_HOST%20+live:true%20+DotcmsNightlyBuilds.version:$VERSION/limit/1 2>/dev/null | python -c 'import sys, json; jsonValue = json.load(sys.stdin)["contentlets"];print jsonValue[0]["commitNumber"] if jsonValue else 0;')
   echo "lastbuild uploaded to dotcms.com for version $VERSION: $lastBuild "
 
-    if [ -f pg_build ]; then
+    if [ -f Postgres_build ]; then
        PGBuild=$(cat Postgres_build)
     fi
 
-    if [ -f my_build ]; then
+    if [ -f MySQL_build ]; then
        MyBuild=$(cat MySQL_build)
     fi
 
-    if [ -f ora_build ]; then
+    if [ -f Oracle_build ]; then
        OraBuild=$(cat Oracle_build)
     fi
 
-    if [ -f h2_build ]; then
+    if [ -f H2_build ]; then
        H2Build=$(cat H2_build)
     fi
 
-    if [ -f ms_build ]; then
+    if [ -f MSSQL_build ]; then
        MSBuild=$(cat MSSQL_build)
     fi
 

@@ -5,7 +5,7 @@
 trap 'echo "[$USER@$(hostname) $PWD]\$ $BASH_COMMAND"' DEBUG
 
 
-VERSION='master'
+VERSION='$GIT_BRANCH_NAME'
 cd "$JENKINS_HOME/distro/ready/$VERSION/"
 GIT_COMMIT=$(cat commit)
 echo "latest were built for commit $GIT_COMMIT" 

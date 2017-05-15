@@ -8,12 +8,12 @@ trap 'echo "[$USER@$(hostname) $PWD]\$ $BASH_COMMAND"' DEBUG
 export AWS_CREDENTIAL_PROFILES_FILE=$JENKINS_HOME/credentials
 export AWS_CREDENTIAL_PRIVATE_KEY_FILE=$JENKINS_HOME/dotcms-dev-test-deploy-2017-02-0x5513.pem
 
-export VERSION='master'
+export VERSION='${GIT_BRANCH_NAME}'
 export TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 
 
 # Terminate and delete AWS instance
-cd "$WORKSPACE/repo/dotCMS"
+cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS"
 if [ -f aws-ec2-instance-id.txt ]; then
 	export AWS_EC2_INSTANCE_ID=$(cat aws-ec2-instance-id.txt)
     ./gradlew -b build-aws-tests.gradle terminateInstance -PinstanceId=$AWS_EC2_INSTANCE_ID -Pdatabase=$DOT_CMS_DATABASE_TYPE -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon

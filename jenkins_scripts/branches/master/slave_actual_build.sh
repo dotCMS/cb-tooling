@@ -9,7 +9,7 @@ export AWS_CREDENTIAL_PROFILES_FILE=$JENKINS_HOME/credentials
 export AWS_CREDENTIAL_PRIVATE_KEY_FILE=$JENKINS_HOME/dotcms-dev-test-deploy-2017-02-0x5513.pem
 
 
-cd "$WORKSPACE/repo/dotCMS"
+cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS"
 ./gradlew clean --no-daemon --refresh-dependencies
 
 
@@ -34,16 +34,16 @@ echo $AWS_RDS_INSTANCE_ID > aws-rds-instance-id.txt
 
 
 # Uncompress tests results
-cd "$WORKSPACE/repo/dotCMS/build"
+cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build"
 unzip build-aws-tests.zip
 
 # Print logs to console
-cat "$WORKSPACE/repo/dotCMS/build/tests/logs/dotcms.log"
+cat "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs/dotcms.log"
 
 # Saving tomcat logs into the build folder
 mkdir -p "$WORKSPACE/logs/${BUILD_NUMBER}"
-mv "$WORKSPACE/repo/dotCMS/build/tests/logs"/* "$WORKSPACE/logs/${BUILD_NUMBER}/"
-rm -r "$WORKSPACE/repo/dotCMS/build/tests/logs/"
+mv "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs"/* "$WORKSPACE/logs/${BUILD_NUMBER}/"
+rm -r "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs/"
 
 #Removes old logs folders, preserving the first 20 (most recent)
 cd "$WORKSPACE/logs/"

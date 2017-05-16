@@ -4,6 +4,8 @@
 # Enable echoing commands
 trap 'echo "[$USER@$(hostname) $PWD]\$ $BASH_COMMAND"' DEBUG
 
+export GRADLE_OPTS="-Xmx1024m -Xms256m -XX:MaxPermSize=512m"
+
 
 VERSION="${GIT_BRANCH_NAME}"
 cd "$JENKINS_HOME/distro/ready/$VERSION/"

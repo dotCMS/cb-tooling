@@ -12,6 +12,8 @@ export AWS_CREDENTIAL_PRIVATE_KEY_FILE=$JENKINS_HOME/dotcms-dev-test-deploy-2017
 
 
 cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS"
+sed -i "s,^org.gradle.jvmargs=,#org.gradle.jvmargs=,g" gradle.properties
+
 ./gradlew clean --no-daemon --refresh-dependencies
 
 

@@ -20,6 +20,7 @@ cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS"
 
 #Cleaning up gradle cache
 rm -rf "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/.gradle/"
+sed -i "s,^org.gradle.jvmargs=,#org.gradle.jvmargs=,g" gradle.properties
 
 ./gradlew clean --no-daemon --refresh-dependencies
 ./gradlew createDist --no-daemon

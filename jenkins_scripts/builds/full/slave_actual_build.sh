@@ -18,23 +18,23 @@ sed -i "s,^org.gradle.jvmargs=,#org.gradle.jvmargs=,g" gradle.properties
 
 
 # Create AWS EC2 instance
-export AWS_EC2_INSTANCE_ID="$(./gradlew -b build-aws-tests.gradle launchInstance -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon | sed 's@.*InstanceId: \([^,]*\).*@\1@g' | grep '^i-.*$' | awk 'FNR==1{print $0}')"
+export AWS_EC2_INSTANCE_ID="$(./gradlew -b build-aws-tests.gradle launchInstance -PpropertiesFile=build-aws-tests-full.properties -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon | sed 's@.*InstanceId: \([^,]*\).*@\1@g' | grep '^i-.*$' | awk 'FNR==1{print $0}')"
 echo $AWS_EC2_INSTANCE_ID > aws-ec2-instance-id.txt
 
 # Wait for AWS EC2 instance (and set it up)
-./gradlew -b build-aws-tests.gradle waitInstanceLaunched setupInstance -PinstanceId=$AWS_EC2_INSTANCE_ID -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon
+./gradlew -b build-aws-tests.gradle waitInstanceLaunched setupInstance -PpropertiesFile=build-aws-tests-full.properties -PinstanceId=$AWS_EC2_INSTANCE_ID -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon
 
 
 # Create AWS RDS instance
-export AWS_RDS_INSTANCE_ID="$(./gradlew -b build-aws-tests.gradle createDBInstance -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon | sed 's@.*DBInstanceIdentifier: \([^,]*\).*@\1@g' | grep '^dotcms-.*$' | awk 'FNR==1{print $0}')"
+export AWS_RDS_INSTANCE_ID="$(./gradlew -b build-aws-tests.gradle createDBInstance -PpropertiesFile=build-aws-tests-full.properties -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon | sed 's@.*DBInstanceIdentifier: \([^,]*\).*@\1@g' | grep '^dotcms-.*$' | awk 'FNR==1{print $0}')"
 echo $AWS_RDS_INSTANCE_ID > aws-rds-instance-id.txt
 
 # Wait for AWS RDS instance (and set it up)
-./gradlew -b build-aws-tests.gradle waitDBInstanceCreated setupDBInstance -PdbInstanceId=$AWS_RDS_INSTANCE_ID -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon
+./gradlew -b build-aws-tests.gradle waitDBInstanceCreated setupDBInstance -PpropertiesFile=build-aws-tests-full.properties -PdbInstanceId=$AWS_RDS_INSTANCE_ID -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon
 
 
 # Run tests on remote AWS EC2 instance
-./gradlew -b build-aws-tests.gradle executeScript -PinstanceId=$AWS_EC2_INSTANCE_ID -PdbInstanceId=$AWS_RDS_INSTANCE_ID -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon
+./gradlew -b build-aws-tests.gradle executeScript -PpropertiesFile=build-aws-tests-full.properties -PinstanceId=$AWS_EC2_INSTANCE_ID -PdbInstanceId=$AWS_RDS_INSTANCE_ID -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon
 
 
 # Uncompress tests results

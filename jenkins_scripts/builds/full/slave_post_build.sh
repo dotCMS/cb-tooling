@@ -18,11 +18,11 @@ export TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS"
 if [ -f aws-ec2-instance-id.txt ]; then
 	export AWS_EC2_INSTANCE_ID=$(cat aws-ec2-instance-id.txt)
-    ./gradlew -b build-aws-tests.gradle terminateInstance -PinstanceId=$AWS_EC2_INSTANCE_ID -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon
+    ./gradlew -b build-aws-tests.gradle terminateInstance -PpropertiesFile=build-aws-tests-full.properties -PinstanceId=$AWS_EC2_INSTANCE_ID -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon
 fi
 if [ -f aws-rds-instance-id.txt ]; then
 	export AWS_RDS_INSTANCE_ID=$(cat aws-rds-instance-id.txt)
-    ./gradlew -b build-aws-tests.gradle deleteDBInstance -PdbInstanceId=$AWS_RDS_INSTANCE_ID -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon
+    ./gradlew -b build-aws-tests.gradle deleteDBInstance -PpropertiesFile=build-aws-tests-full.properties -PdbInstanceId=$AWS_RDS_INSTANCE_ID -Pdatabase=$DOTCMS_DATABASE_NAME -Pbranch=${GIT_BRANCH#*/} -Pcommit=$GIT_COMMIT -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon
 fi
 
 

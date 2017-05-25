@@ -39,24 +39,27 @@ if [ -f $CONTINUOUS_AWS_EC2_INSTANCE_ID ]; then
 		./gradlew -b build-aws-tests.gradle executeScript -PpropertiesFile=build-aws-tests-continuous.properties -Pbranch=${GIT_BRANCH_NAME} -Pdatabase=$DOTCMS_DATABASE_NAME -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE -PoutputFile=build-aws-tests-${GIT_BRANCH_NAME}.zip -Pprovisioned=true -PinstanceId=$AWS_EC2_INSTANCE_ID --no-daemon
 
 
-		# Uncompress tests results
-		cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build"
-		unzip build-aws-tests-${GIT_BRANCH_NAME}.zip
-
-		# Print logs to console
-		cat "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs/dotcms.log"
-
-		# Saving tomcat logs into the build folder
-		mkdir -p "$WORKSPACE/logs/${BUILD_NUMBER}"
-		mv "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs"/* "$WORKSPACE/logs/${BUILD_NUMBER}/"
-		rm -r "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs/"
-
-		#Removes old logs folders, preserving the first 20 (most recent)
-		cd "$WORKSPACE/logs/"
-		ls -dt */ | tail -n +21 | xargs rm -rf
-
-		echo "$GIT_COMMIT" > $JENKINS_HOME/continuous/git-commit-id-${GIT_BRANCH_NAME}.txt
+		# Copy tests results to workspace
+		cp "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/build-aws-tests-${GIT_BRANCH_NAME}.zip" "$WORKSPACE/build-aws-tests-${GIT_BRANCH_NAME}.zip"
 	fi
+
+	# Uncompress tests results
+	cd "$WORKSPACE"
+	unzip build-aws-tests-${GIT_BRANCH_NAME}.zip
+
+	# Print logs to console
+	cat "$WORKSPACE/tests/logs/dotcms.log"
+
+	# Saving tomcat logs into the build folder
+	mkdir -p "$WORKSPACE/logs/${BUILD_NUMBER}"
+	mv "$WORKSPACE/tests/logs/*" "$WORKSPACE/logs/${BUILD_NUMBER}/"
+	rm -r "$WORKSPACE/tests/logs/"
+
+	#Removes old logs folders, preserving the first 20 (most recent)
+	cd "$WORKSPACE/logs/"
+	ls -dt */ | tail -n +21 | xargs rm -rf
+
+	echo "$GIT_COMMIT" > $JENKINS_HOME/continuous/git-commit-id-${GIT_BRANCH_NAME}.txt
 else
 	echo "Nothing to do. Server is down"
 fi

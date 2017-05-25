@@ -30,8 +30,8 @@ if [ ! -f $CONTINOUS_AWS_EC2_INSTANCE_ID ]; then
 	# Create AWS EC2 instance
 	export AWS_EC2_INSTANCE_ID="$(./gradlew -b build-aws-tests.gradle launchInstance -PpropertiesFile=build-aws-tests-continuous.properties -Pbranch=all -Pdatabase=$DOTCMS_DATABASE_NAME -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE --no-daemon | sed 's@.*InstanceId: \([^,]*\).*@\1@g' | grep '^i-.*$' | awk 'FNR==1{print $0}')"
 
-	echo $AWS_EC2_INSTANCE_ID > $CONTINOUS_AWS_EC2_INSTANCE_ID
-
 	# Wait for AWS EC2 instance (and set it up)
 	./gradlew -b build-aws-tests.gradle waitInstanceLaunched setupInstance -PpropertiesFile=build-aws-tests-continuous.properties -Pbranch=all -Pdatabase=$DOTCMS_DATABASE_NAME -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE -PinstanceId=$AWS_EC2_INSTANCE_ID --no-daemon
+
+	echo $AWS_EC2_INSTANCE_ID > $CONTINOUS_AWS_EC2_INSTANCE_ID
 fi

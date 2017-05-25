@@ -18,8 +18,6 @@ sed -i "s,^org.gradle.jvmargs=,#org.gradle.jvmargs=,g" gradle.properties
 export CONTINUOUS_AWS_EC2_INSTANCE_ID=$JENKINS_HOME/continuous/aws-ec2-instance-id.txt
 export CONTINUOUS_GIT_COMMIT_ID=$(cat $JENKINS_HOME/continuous/git-commit-id-${GIT_BRANCH_NAME}.txt)
 
-echo "$GIT_COMMIT" > $JENKINS_HOME/continuous/git-commit-id-${GIT_BRANCH_NAME}.txt
-
 export DOTCMS_DATABASE_NAME=Postgres
 
 
@@ -56,6 +54,8 @@ if [ -f $CONTINUOUS_AWS_EC2_INSTANCE_ID ]; then
 		#Removes old logs folders, preserving the first 20 (most recent)
 		cd "$WORKSPACE/logs/"
 		ls -dt */ | tail -n +21 | xargs rm -rf
+
+		echo "$GIT_COMMIT" > $JENKINS_HOME/continuous/git-commit-id-${GIT_BRANCH_NAME}.txt
 	fi
 else
 	echo "Nothing to do. Server is down"

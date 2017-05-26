@@ -33,7 +33,7 @@ if [ -f $CONTINUOUS_AWS_EC2_INSTANCE_ID ]; then
 
 
 	# Run tests on remote AWS EC2 instance
-	./gradlew -b build-aws-tests.gradle executeScript -PpropertiesFile=build-aws-tests-continuous.properties -Pbranch=${GIT_BRANCH_NAME} -Pdatabase=$DOTCMS_DATABASE_NAME -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE -PoutputFile=build-aws-tests-${GIT_BRANCH_NAME}.zip -Pprovisioned=true -PinstanceId=$AWS_EC2_INSTANCE_ID --no-daemon
+	./gradlew -b build-aws-tests.gradle executeScript -PpropertiesFile=build-aws-tests-continuous.properties -Pbranch=${GIT_BRANCH_NAME} -Pcommit=${GIT_COMMIT} -Pdatabase=$DOTCMS_DATABASE_NAME -PkeyFile=$AWS_CREDENTIAL_PRIVATE_KEY_FILE -PoutputFile=build-aws-tests-${GIT_BRANCH_NAME}.zip -Pprovisioned=true -PinstanceId=$AWS_EC2_INSTANCE_ID --no-daemon
 
 
 	# Uncompress tests results

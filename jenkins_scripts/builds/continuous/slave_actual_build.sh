@@ -15,10 +15,10 @@ cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS"
 sed -i "s,^org.gradle.jvmargs=,#org.gradle.jvmargs=,g" gradle.properties
 
 
-echo "$GIT_COMMIT" > $JENKINS_HOME/continuous/git-commit-id-${GIT_BRANCH_NAME}.txt
+echo "$GIT_COMMIT" > $JENKINS_HOME/builds/continuous/git-commit-id-${GIT_BRANCH_NAME}.txt
 
 
-export CONTINUOUS_AWS_EC2_INSTANCE_ID=$JENKINS_HOME/continuous/aws-ec2-instance-id.txt
+export CONTINUOUS_AWS_EC2_INSTANCE_ID=$JENKINS_HOME/builds/continuous/aws-ec2-instance-id.txt
 
 export DOTCMS_DATABASE_NAME=Postgres
 

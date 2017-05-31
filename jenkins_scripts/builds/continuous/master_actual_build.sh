@@ -15,7 +15,7 @@ cd "$WORKSPACE/repo/dotCMS"
 sed -i "s,^org.gradle.jvmargs=,#org.gradle.jvmargs=,g" gradle.properties
 
 
-export CONTINOUS_AWS_EC2_INSTANCE_ID=$JENKINS_HOME/continuous/aws-ec2-instance-id.txt
+export CONTINOUS_AWS_EC2_INSTANCE_ID=$JENKINS_HOME/builds/continuous/aws-ec2-instance-id.txt
 
 export DOTCMS_DATABASE_NAME=Postgres
 

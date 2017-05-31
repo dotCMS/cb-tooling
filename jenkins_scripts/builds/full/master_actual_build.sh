@@ -52,6 +52,7 @@ else
 	echo "Distribution still not created"
 fi
 
+echo "$GIT_COMMIT" > $JENKINS_HOME/builds/full/git-commit-id-${GIT_BRANCH_NAME}.txt
 echo "$GIT_COMMIT" > $JENKINS_HOME/distro/ready/$VERSION/commit
 echo "$GIT_BRANCH_NAME" > $JENKINS_HOME/distro/ready/$VERSION/branch
 

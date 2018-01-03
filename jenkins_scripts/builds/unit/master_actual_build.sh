@@ -25,8 +25,9 @@ echo $branch_exists
 if [[ $branch_exists ]]; then
     (git fetch && git checkout $current_branch)
     echo "Enterprise branch updated"
-    cd "$WORKSPACE/repo/dotCMS"
 fi
+
+cd "$WORKSPACE/repo/dotCMS"
 
 sed -i "s,^org.gradle.jvmargs=,#org.gradle.jvmargs=,g" gradle.properties
 

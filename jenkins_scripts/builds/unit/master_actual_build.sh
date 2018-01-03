@@ -13,7 +13,7 @@ git fetch
 current_commit=`git rev-parse HEAD`
 
 echo "Working on commit $current_commit"
-current_branch=`git branch -r --contains $current_commit`
+current_branch=`git branch -r --contains $current_commit | head -1`
 
 echo "Branch retrieved $current_branch"
 

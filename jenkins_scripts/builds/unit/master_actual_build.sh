@@ -11,10 +11,10 @@ cd "$WORKSPACE/repo/dotCMS"
 
 git fetch
 current_commit=`git rev-parse HEAD`
-
 echo "Working on commit $current_commit"
-current_branch=`git branch -r --contains $current_commit | head -1`
 
+current_branch=`git branch -r --contains $current_commit | head -1`
+current_branch=`echo $current_branch | cut -d'/' -f2`
 echo "Branch retrieved $current_branch"
 
 cd src/main/enterprise

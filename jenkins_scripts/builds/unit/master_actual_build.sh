@@ -11,7 +11,11 @@ cd "$WORKSPACE/repo/dotCMS"
 
 git fetch
 current_commit=`git rev-parse HEAD`
+
+echo 'Working on commit $current_commit'
 current_branch=`git branch -r --contains $current_commit`
+
+echo 'Branch retrieved $current_branch'
 
 cd src/main/enterprise
 branch_exists=$(git ls-remote --heads git@github.com:dotCMS/enterprise-2.x.git $current_branch);

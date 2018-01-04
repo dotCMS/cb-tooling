@@ -32,4 +32,9 @@ cd "$WORKSPACE/repo/dotCMS"
 sed -i "s,^org.gradle.jvmargs=,#org.gradle.jvmargs=,g" gradle.properties
 
 ./gradlew clean --no-daemon
-./gradlew test --no-daemon || true
+
+if [[ $branch_exists ]]; then
+    ./gradlew testDev --no-daemon || true
+else
+    ./gradlew test --no-daemon || true
+fi

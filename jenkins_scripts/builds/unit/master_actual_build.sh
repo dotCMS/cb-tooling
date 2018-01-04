@@ -17,17 +17,17 @@ current_branch=`git branch -r --contains $current_commit | head -1`
 current_branch=`echo $current_branch | cut -d'/' -f2`
 echo "Branch retrieved $current_branch"
 
-cd src/main/enterprise
 branch_exists=$(git ls-remote --heads git@github.com:dotCMS/enterprise-2.x.git $current_branch);
 
 echo $branch_exists
 
 if [[ $branch_exists ]]; then
+    git submodule update --init --recursive
+    cd src/main/enterprise
     (git fetch && git checkout $current_branch && git pull)
     echo "Enterprise branch updated"
+    cd "$WORKSPACE/repo/dotCMS"
 fi
-
-cd "$WORKSPACE/repo/dotCMS"
 
 sed -i "s,^org.gradle.jvmargs=,#org.gradle.jvmargs=,g" gradle.properties
 

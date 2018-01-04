@@ -23,7 +23,7 @@ branch_exists=$(git ls-remote --heads git@github.com:dotCMS/enterprise-2.x.git $
 echo $branch_exists
 
 if [[ $branch_exists ]]; then
-    (git fetch && git checkout $current_branch)
+    (git fetch && git checkout $current_branch && git pull)
     echo "Enterprise branch updated"
 fi
 

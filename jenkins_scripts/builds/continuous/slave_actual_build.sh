@@ -37,8 +37,8 @@ if [ -f $CONTINUOUS_AWS_EC2_INSTANCE_ID ]; then
 
 
 	# Uncompress tests results
-	cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build"
-	unzip build-aws-tests-${GIT_BRANCH_NAME}.zip
+	#cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build"
+	#unzip build-aws-tests-${GIT_BRANCH_NAME}.zip
 
 	# Print logs to console
 	cat "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs/dotcms.log"

@@ -37,20 +37,20 @@ if [ -f $CONTINUOUS_AWS_EC2_INSTANCE_ID ]; then
 
 
 	# Uncompress tests results
-	#cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build"
-	#unzip build-aws-tests-${GIT_BRANCH_NAME}.zip
+	cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build"
+	unzip build-aws-tests-${GIT_BRANCH_NAME}.zip
 
 	# Print logs to console
-	#cat "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs/dotcms.log"
+	cat "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs/dotcms.log"
 
 	# Saving tomcat logs into the build folder
-	#mkdir -p "$WORKSPACE/logs/${BUILD_NUMBER}"
-	#mv "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs"/* "$WORKSPACE/logs/${BUILD_NUMBER}/"
-	#rm -r "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs/"
+	mkdir -p "$WORKSPACE/logs/${BUILD_NUMBER}"
+	mv "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs"/* "$WORKSPACE/logs/${BUILD_NUMBER}/"
+	rm -r "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/build/tests/logs/"
 
 	#Removes old logs folders, preserving the first 20 (most recent)
-	#cd "$WORKSPACE/logs/"
-	#ls -dt */ | tail -n +21 | xargs rm -rf
+	cd "$WORKSPACE/logs/"
+	ls -dt */ | tail -n +21 | xargs rm -rf
 else
 	echo "Nothing to do. Server is down"
 fi

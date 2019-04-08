@@ -12,8 +12,29 @@ export AWS_CREDENTIAL_PRIVATE_KEY_FILE=$JENKINS_HOME/dotcms-dev-test-deploy-2017
 
 
 cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS"
-sed -i "s,^org.gradle.jvmargs=,#org.gradle.jvmargs=,g" gradle.properties
 
+git fetch
+current_commit=`git rev-parse HEAD`
+echo "Working on commit $current_commit"
+
+current_branch=`git branch -r --contains $current_commit | head -1`
+current_branch=`echo $current_branch | cut -d'/' -f2`
+echo "Branch retrieved $current_branch"
+
+branch_exists=$(git ls-remote --heads git@github.com:dotCMS/enterprise-2.x.git $current_branch);
+
+echo $branch_exists
+
+if [[ $branch_exists ]]; then
+    git submodule update --init --recursive
+    cd src/main/enterprise
+    (git fetch && git checkout $current_branch && git pull)
+    echo "Enterprise branch updated"
+    cd "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS"
+fi
+
+
+sed -i "s,^org.gradle.jvmargs=,#org.gradle.jvmargs=,g" gradle.properties
 
 echo "$GIT_COMMIT" > $JENKINS_HOME/builds/continuous/git-commit-id-${GIT_BRANCH_NAME}.txt
 

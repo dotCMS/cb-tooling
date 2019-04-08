@@ -23,7 +23,7 @@ rm -rf "$WORKSPACE/${GIT_BRANCH_NAME}/dotCMS/.gradle/"
 sed -i "s,^org.gradle.jvmargs=,#org.gradle.jvmargs=,g" gradle.properties
 
 ./gradlew clean --no-daemon --refresh-dependencies
-./gradlew createDist --no-daemon
+./gradlew createDist --no-daemon --stacktrace
 
 #VERSION=$(grep dotcms.release.version  src/main/webapp/WEB-INF/classes/release.properties | awk -F = '{ print $2 }')
 VERSION="${GIT_BRANCH_NAME}"
